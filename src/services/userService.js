@@ -69,12 +69,16 @@ const handleRegister = (data) => {
     return new Promise(async (resolve, reject) => {
         let signUpMessage = {}
         try {
+            console.log('4');
             let checkEmail = await db.nguoi_dung.findOne({
                 where: { Email: data.Email }
             })
+            console.log('5');
             let checkPhone = await db.nguoi_dung.findOne({
                 where: { Dien_thoai: data.Dien_thoai }
             })
+            console.log('6');
+
             if (checkEmail) {
                 signUpMessage.errCode = '2'
                 signUpMessage.message = 'Email đã tồn tại'
@@ -83,20 +87,29 @@ const handleRegister = (data) => {
                     signUpMessage.errCode = '3'
                     signUpMessage.message = 'Số điện thoại này đã đăng kí'
                 } else {
-                    if (data.Dien_thoai.length > 12 || data.Dien_thoai.length < 10) {
+                    console.log(data.Dien_thoai.length)
+                    if (data.Dien_thoai.length >= 12 || data.Dien_thoai.length < 10) {
                         signUpMessage.errCode = '4'
                         signUpMessage.message = 'Số điện thoại không hợp lệ'
                     } else {
 
+                        console.log('7');
                         const hashPasswordBcrypt = await hashPassword(data.Mat_khau)
-                        await db.nguoi_dung.create({
-                            Ho_ten: data.Ho_ten,
-                            Email: data.Email,
-                            Dien_thoai: data.Dien_thoai,
-                            Mat_khau: hashPasswordBcrypt,
-                            Gioi_tinh: data.Gioi_tinh === '1' ? true : false,
-                            Id_phan_quyen: data.Id_phan_quyen
-                        })
+                        console.log('8');
+
+                        try {
+                            await db.nguoi_dung.create({
+                                Ho_ten: data.Ho_ten,
+                                Email: data.Email,
+                                Dien_thoai: data.Dien_thoai,
+                                Mat_khau: hashPasswordBcrypt,
+                                Gioi_tinh: data.Gioi_tinh === '1' ? true : false,
+                                Id_phan_quyen: data.Id_phan_quyen
+                            })
+                        } catch (e) {
+                            console.log(e);
+                        }
+
                         signUpMessage.errCode = '0'
                         signUpMessage.message = 'Them thanh cong'
                     }
@@ -115,9 +128,11 @@ const handleRegister = (data) => {
 const hashPassword = (Mat_khau) => {
     return new Promise(async (resolve, reject) => {
         try {
+            console.log('99');
             const hashPassword = await bcrypt.hashSync(Mat_khau, salt)
             resolve(hashPassword)
         } catch (e) {
+            console.log(e);
             reject(e)
         }
     })

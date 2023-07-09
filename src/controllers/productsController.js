@@ -13,6 +13,8 @@ const handleAddProduct = async (req, res) => {
     let Id_loai_SP = req.body.Id_loai_SP
     let Id_nhom_SP = req.body.Id_nhom_SP
 
+    console.log(typeof req.body.Gia_san_pham);
+
     if (!Ten_san_pham || !Hinh_anh || !Gia_san_pham || !So_luong_SP || !Id_loai_SP || !Id_nhom_SP) {
         return res.status(200).json({
             errCode: '2',

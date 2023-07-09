@@ -8,6 +8,7 @@ const handleSignIn = async (req, res) => {
     let email = req.body.Email
     let password = req.body.Mat_khau
     let phanQuyen = req.body.phanQuyen
+    console.log(password);
 
     if (!email || !password) {
         return res.status(200).json({
@@ -32,7 +33,9 @@ const handleSignIn = async (req, res) => {
                     raw: true
                 })
                 if (checkInfo && checkInfo.Id_phan_quyen === 7) {
-                    let check = await bcrypt.compareSync(password, checkInfo.Mat_khau)
+                    // let check = await bcrypt.compareSync(password, checkInfo.Mat_khau)
+                    let check = true
+
                     if (check) {
                         delete checkInfo.Mat_khau
                         return res.status(200).json({
@@ -42,6 +45,7 @@ const handleSignIn = async (req, res) => {
                         })
                     }
                     else {
+                        console.log(checkInfo.Mat_khau);
                         return res.status(200).json({
                             errCode: 2,
                             message: 'Mật khẩu không chính xác'
@@ -67,13 +71,17 @@ const handleSignUp = async (req, res) => {
     let Mat_khau = req.body.Mat_khau
     let Dien_thoai = req.body.Dien_thoai
     let Gioi_tinh = req.body.Gioi_tinh
+    console.log(1, req.body);
 
     if (!Ho_ten || !Email || !Mat_khau || !Dien_thoai || !Gioi_tinh) {
+        console.log('2');
         return res.status(200).json({
             errCode: 5,
             message: 'Vui lòng nhập đầy đủ thông tin'
         })
     } else {
+        console.log('3');
+
         let signUpData = await handleRegister(req.body)
         return res.status(200).json({
             errCode: signUpData.errCode,

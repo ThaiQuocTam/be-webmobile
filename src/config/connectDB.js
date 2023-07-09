@@ -1,8 +1,9 @@
 const { Sequelize, Model } = require("sequelize")
 
-const sequelize = new Sequelize("web_mobile", "root", null, {
-    host: "localhost",
-    dialect: "mysql"
+const sequelize = new Sequelize("postgres", "postgres", "a@Anhtam01234253554", {
+    host: process.env.DB_HOST,
+    port: "5432",
+    dialect: "postgres"
 })
 
 const connectDB = async () => {

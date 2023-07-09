@@ -4,13 +4,17 @@ const addProduct = (data) => {
     return new Promise(async (resolve, reject) => {
         let addProductMessage = {}
         try {
+            console.log('dô ròi');
             let check = await checkNameProduct(data.Ten_san_pham)
             if (check) {
+                console.log('checked');
                 addProductMessage.errCode = '1'
                 addProductMessage.message = 'Tên sản phẩm đã tồn tại đã tồn tại!'
             }
             else {
+                console.log('1');
                 if (data.Gia_san_pham.length > 10) {
+                    console.log('2');
                     addProductMessage.errCode = '3'
                     addProductMessage.message = 'Giá sản phẩm không hợp lệ'
                 } else {
@@ -22,12 +26,12 @@ const addProduct = (data) => {
                         await db.san_pham.create({
                             Ten_san_pham: data.Ten_san_pham,
                             Hinh_anh: data.Hinh_anh,
-                            Gia_san_pham: data.Gia_san_pham,
-                            So_luong_SP: data.So_luong_SP,
+                            Gia_san_pham: parseInt(data.Gia_san_pham),
+                            So_luong_SP: parseInt(data.So_luong_SP),
                             Thong_tin_bao_hanh: data.Thong_tin_bao_hanh,
                             Ghi_chu: data.Ghi_chu,
-                            Id_loai_SP: data.Id_loai_SP,
-                            Id_nhom_SP: data.Id_nhom_SP
+                            Id_loai_SP: parseInt(data.Id_loai_SP),
+                            Id_nhom_SP: parseInt(data.Id_nhom_SP)
                         })
                         addProductMessage.errCode = '0'
                         addProductMessage.message = 'Thêm sản phẩm thành công'
@@ -42,6 +46,7 @@ const addProduct = (data) => {
 }
 
 const checkNameProduct = async (name) => {
+    console.log(name);
     return new Promise(async (resolve, reject) => {
         try {
             let checkName = await db.san_pham.findOne({
