@@ -12,7 +12,29 @@ const router = express.Router();
 
 const initWebRoutes = (app) => {
 
-    router.get('/', (req, res) => { return res.send("Hello worlds") })
+    router.get('/', async (req, res) => {
+        try {
+            let infoUser = await db.nguoi_dung.findAll({
+                order: [
+                    ['updatedAt', 'DESC']
+                ],
+                raw: true
+            })
+            if (infoUser) {
+                return res.status(200).json(infoUser)
+            } else {
+                return res.status(200).json({
+                    errCode: '1',
+                    message: 'Không tìm thấy người dùng'
+                })
+            }
+        } catch (e) {
+            return res.status(200).json({
+                errCode: '2',
+                message: 'lỗi'
+            })
+        }
+    })
 
     //api user
     router.post('/api/signIn', userController.handleSignIn)
