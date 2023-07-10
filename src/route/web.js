@@ -7,6 +7,8 @@ import reviewController from "../controllers/reviewController"
 import productDetailController from "../controllers/productDetailController"
 import statusOrderController from "../controllers/statusOrderController"
 import slidesController from "../controllers/slidesController"
+import db, { Sequelize } from '../models/index'
+
 
 const router = express.Router();
 
@@ -31,7 +33,7 @@ const initWebRoutes = (app) => {
         } catch (e) {
             return res.status(200).json({
                 errCode: '2',
-                message: 'lỗi'
+                message: e.message
             })
         }
     })
