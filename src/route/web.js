@@ -12,7 +12,7 @@ const router = express.Router();
 
 const initWebRoutes = (app) => {
 
-    router.get('/', (req, res) => { return res.send("Hello worlds") })
+    router.get('/', userController.handleGetAllInfoUser)
 
     //api user
     router.post('/api/signIn', userController.handleSignIn)
