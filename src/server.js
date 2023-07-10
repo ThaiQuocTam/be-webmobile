@@ -7,7 +7,7 @@ import cors from 'cors'
 require("dotenv").config();
 
 let app = express();
-app.use(cors({ credentials: true, origin: ['https://fe-webmoible-2it7.vercel.app', 'http://localhost:3001'] }));
+app.use(cors({ credentials: true, origin: ['https://webmobile-admin.vercel.app', 'https://webmoible-user.vercel.app/'] }));
 
 //config app
 
