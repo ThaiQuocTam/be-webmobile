@@ -21,6 +21,7 @@ const postReview = (data) => {
 
             resolve(mesCreteReview)
         } catch (e) {
+            console.log(e);
             reject(e)
         }
     })

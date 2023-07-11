@@ -5,7 +5,9 @@ const Op = Sequelize.Op
 const handlePostReview = async (req, res) => {
     try {
         if (req.body) {
+            console.log('1');
             let mesPostReview = await reviewService.postReview(req.body)
+            console.log('2');
             if (mesPostReview) {
                 return res.status(200).json({
                     errCode: mesPostReview.errCode,
@@ -18,7 +20,12 @@ const handlePostReview = async (req, res) => {
                 message: 'Chưa có thông tin'
             })
         }
-    } catch (e) { }
+    } catch (e) {
+        return res.status(400).json({
+            errCode: '2',
+            message: 'Lỗi'
+        })
+    }
 }
 
 const handleShowReview = async (req, res) => {

@@ -30,7 +30,7 @@ module.exports = {
             Id_review_user: {
                 type: Sequelize.INTEGER
             },
-            checked: {
+            Checked: {
                 type: Sequelize.BOOLEAN
             },
             Id_san_pham: {
