@@ -7,7 +7,7 @@ import cors from 'cors'
 require("dotenv").config();
 
 let app = express();
-app.use(cors({ credentials: true, origin: ['https://thaiquoctam-webmoible-user.vercel.app', 'https://thaiquoctam-webmobile-admin.vercel.app', 'http://localhost:3003'] }));
+app.use(cors({ credentials: true, origin: ['https://thaiquoctam-webmoible-user.vercel.app', 'https://thaiquoctam-webmobile-admin.vercel.app', 'http://localhost:3002'] }));
 
 //config app
 
